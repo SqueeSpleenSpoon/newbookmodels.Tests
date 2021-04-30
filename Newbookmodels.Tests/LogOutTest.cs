@@ -27,8 +27,11 @@ namespace Newbookmodels.Tests
             var logInButton = _webDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
             logInButton.Click();
 
-            var avatar = _webDriver.FindElement(By.CssSelector("div[class*= link_type_logout]"));
-            avatar.Click(); 
+            var avatar = _webDriver.FindElement(By.CssSelector("[class^=AvatarClient__avatar]"));
+            avatar.Click();
+
+            var logOut = _webDriver.FindElement(By.CssSelector("div[class*= link_type_logout]"));
+            logOut.Click(); 
 
             var actualResult = _webDriver.Url;
 

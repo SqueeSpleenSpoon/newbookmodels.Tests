@@ -129,5 +129,43 @@ namespace Newbookmodels.Tests
 
             Assert.AreEqual("john_travis1996@gmail.com", actualResult);
         }
+
+        [Test]
+        public void ChangePassword()
+        {
+            var edit = _webDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[2];
+            edit.Click();
+
+            var currentPassword = _webDriver.FindElements(By.CssSelector("[class*=input__self_type_password-underline]"))[0];
+            currentPassword.SendKeys("12345QWERTy_");
+
+            var newPassword = _webDriver.FindElements(By.CssSelector("[class*=input__self_type_password-underline]"))[1];
+            currentPassword.SendKeys("12345QWERTy_1");
+
+            var retypeNewPassword = _webDriver.FindElements(By.CssSelector("[class*=input__self_type_password-underline]"))[2];
+            currentPassword.SendKeys("12345QWERTy_1");
+
+            var saveChanges = _webDriver.FindElements(By.CssSelector("button[class*=button_type_default]"))[1];
+            saveChanges.Click();
+
+            var logOut = _webDriver.FindElement(By.CssSelector("div[class*= link_type_logout]"));
+            logOut.Click();
+
+            _webDriver.Navigate().GoToUrl("https://newbookmodels.com/auth/signin");
+
+            var email = _webDriver.FindElement(By.CssSelector("[type = email]"));
+            email.SendKeys("john_travis1996@gmail.com");
+
+            var password = _webDriver.FindElement(By.CssSelector("[type = password]"));
+            password.SendKeys("12345QWERTy_1");
+
+            var LogInButton = _webDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
+            LogInButton.Click();
+
+            var actualResult = _webDriver.Url;
+
+            Assert.AreEqual("https://newbookmodels.com/explore", actualResult);
+
+        }
     }
 }
