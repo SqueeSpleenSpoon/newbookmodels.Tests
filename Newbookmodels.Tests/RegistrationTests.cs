@@ -9,23 +9,9 @@ using WebDriverManager.Helpers;
 
 namespace Newbookmodels.Tests
 {
-    public class RegistrationTests
+    class RegistrationTests : AuthorizationTest
     {
         private IWebDriver _webDriver;
-        [SetUp]
-        public void Setup()
-        {
-            new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
-            _webDriver = new ChromeDriver();
-            _webDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(60);
-            //IJavaScriptExecutor js =  _webDriver;
-
-        }
-        [TearDown]
-        public void TearDown()
-        {
-            _webDriver.Quit();
-        }
 
         [Test]
         public void Registration()
