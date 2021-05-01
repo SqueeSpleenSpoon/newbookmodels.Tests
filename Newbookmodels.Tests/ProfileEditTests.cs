@@ -15,7 +15,7 @@ namespace Newbookmodels.Tests
         [Test]
         public void AddCard()
         {
-            _webDriver.Navigate().GoToUrl("https://newbookmodels.com/auth/signin");
+            _webDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit"); 
 
             var email = _webDriver.FindElement(By.CssSelector("[type = email]"));
             email.SendKeys("nebayig768@laraskey.com");
@@ -50,6 +50,7 @@ namespace Newbookmodels.Tests
         [Test]
         public void ChengePrimaryAccountHolderName()
         {
+
             _webDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
 
             var edit = _webDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[0];
@@ -113,6 +114,8 @@ namespace Newbookmodels.Tests
         [Test]
         public void ChangeEmail()
         {
+            _webDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
+
             var edit = _webDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[1];
             edit.Click();
 
@@ -133,6 +136,8 @@ namespace Newbookmodels.Tests
         [Test]
         public void ChangePassword()
         {
+            _webDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
+
             var edit = _webDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[2];
             edit.Click();
 
@@ -165,7 +170,27 @@ namespace Newbookmodels.Tests
             var actualResult = _webDriver.Url;
 
             Assert.AreEqual("https://newbookmodels.com/explore", actualResult);
+        }
 
+        public void ChangePhone()
+        {
+            _webDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
+
+            var edit = _webDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[3];
+            edit.Click();
+
+            var currentPassword = _webDriver.FindElements(By.CssSelector("input[class*=input__self ]"))[1];
+            currentPassword.SendKeys("12345QWERTy_1"); 
+
+            var newPhone = _webDriver.FindElements(By.CssSelector("input[class*=input__self_type_text-underline]"))[1];
+            newPhone.SendKeys("3221488505");
+
+            var saveChanges = _webDriver.FindElements(By.CssSelector("[class*=button_type_default]"))[2];
+            saveChanges.Click();
+
+            var actualResult = _webDriver.FindElements(By.CssSelector("span[class^=font]"))[1].Text.Trim();
+
+            Assert.AreEqual("322.148.8505", actualResult);
         }
     }
 }
