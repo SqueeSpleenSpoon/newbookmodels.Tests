@@ -23,7 +23,7 @@ namespace Newbookmodels.Tests
             firstName.SendKeys($"Valera{DateTime.Now.ToString("yyyyMMdhhmmss")}");
 
             var lastName = _webDriver.FindElement(By.CssSelector("[name= last_name]"));
-            lastName.SendKeys(($"Zhih{DateTime.Now.ToString("yyyyMMdhhmmss")}"));
+            lastName.SendKeys(($"Zih{DateTime.Now.ToString("yyyyMMdhhmmss")}"));
 
             var email = _webDriver.FindElement(By.CssSelector("[name= email]"));
             email.SendKeys($"{DateTime.Now.ToString("yyyyMMdhhmmss")}@ukr.net");
