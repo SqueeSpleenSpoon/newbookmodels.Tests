@@ -14,11 +14,11 @@ namespace Newbookmodels.Tests
         [Test]
         public void Authorization()
         {
- 
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
             WebDriver.Navigate().GoToUrl("https://newbookmodels.com/auth/signin");
 
             var email = WebDriver.FindElement(By.CssSelector("[type = email]"));
-            email.SendKeys("nebayig768@laraskey.com");  
+            email.SendKeys("jexon1992@gmail.com");  
 
             var password = WebDriver.FindElement(By.CssSelector("[type = password]"));
             password.SendKeys("12345QWERTy_"); 
@@ -26,9 +26,11 @@ namespace Newbookmodels.Tests
             var LogInButton = WebDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
             LogInButton.Click();
 
+            wait.Until(ExpectedConditions.UrlContains("Fexplore"));
+
             var actualResult = WebDriver.Url;
 
-            Assert.AreEqual("https://newbookmodels.com/explore", actualResult);
+            Assert.AreEqual("https://newbookmodels.com/join/company?goBackUrl=%2Fexplore", actualResult);
         }
 
     }

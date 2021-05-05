@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
+using System.Threading;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
@@ -10,46 +12,22 @@ namespace Newbookmodels.Tests
 {
     class ProfileEditTests : BasedTests
     {
-
-
-      /*  [Test]
-        public void AddCard()
+        [Test]
+        public void ChengePrimaryAccountHolderName()
         {
-            WebDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit"); 
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+            WebDriver.Navigate().GoToUrl("https://newbookmodels.com/auth/signin");
 
             var email = WebDriver.FindElement(By.CssSelector("[type = email]"));
-            email.SendKeys("nebayig768@laraskey.com");
+            email.SendKeys("jexon1992@gmail.com");
 
             var password = WebDriver.FindElement(By.CssSelector("[type = password]"));
             password.SendKeys("12345QWERTy_");
 
-            var logInButton = WebDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
-            logInButton.Click();
+            var LogInButton = WebDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
+            LogInButton.Click();
 
-            var avatar = WebDriver.FindElement(By.CssSelector("div[class*= link_type_logout]"));
-            avatar.Click();
-            
-            var card = WebDriver.FindElement(By.CssSelector("[placeholder^=Card]"));
-            card.SendKeys("3566000020000410");
-
-            var fullName = WebDriver.FindElement(By.CssSelector("[class*=input__self]"));
-            fullName.SendKeys("JOHN TRAVOLTA");
-
-            var termins = WebDriver.FindElement(By.CssSelector("input[autocomplete = cc - exp]"));
-            termins.SendKeys("0223"); 
-
-            var cvc = WebDriver.FindElement(By.CssSelector("input[autocomplete = cc - csc]"));
-            termins.SendKeys("123");
-
-            var saveButton = WebDriver.FindElements(By.CssSelector("[class*=button_type_default]"))[1];
-            saveButton.Click();
-
-
-           //  Assert.AreEqual("https://newbookmodels.com/auth/signin", actualResult);
-        }*/
-        [Test]
-        public void ChengePrimaryAccountHolderName()
-        {
+            wait.Until(ExpectedConditions.UrlContains("Fexplore"));
 
             WebDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
 
@@ -67,6 +45,7 @@ namespace Newbookmodels.Tests
             var saveChanges = WebDriver.FindElements(By.CssSelector("button[class*=button_type_default]"))[0];
             saveChanges.Click();
 
+            Thread.Sleep(3000);
             var actualResult = WebDriver.FindElements(By.CssSelector("[class=paragraph_type_gray]"))[1].Text.Trim();
 
             Assert.AreEqual("John Travis", actualResult);
