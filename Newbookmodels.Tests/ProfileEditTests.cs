@@ -53,6 +53,20 @@ namespace Newbookmodels.Tests
         [Test]
         public void ChengeCompanyLocation()
         {
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+            WebDriver.Navigate().GoToUrl("https://newbookmodels.com/auth/signin");
+
+            var email = WebDriver.FindElement(By.CssSelector("[type = email]"));
+            email.SendKeys("jexon1992@gmail.com");
+
+            var password = WebDriver.FindElement(By.CssSelector("[type = password]"));
+            password.SendKeys("12345QWERTy_");
+
+            var LogInButton = WebDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
+            LogInButton.Click();
+
+            wait.Until(ExpectedConditions.UrlContains("Fexplore"));
+
             WebDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
 
             var edit = WebDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[0];
@@ -66,6 +80,8 @@ namespace Newbookmodels.Tests
             var saveChanges = WebDriver.FindElements(By.CssSelector("button[class*=button_type_default]"))[0];
             saveChanges.Click();
 
+            Thread.Sleep(1500);
+
             var actualResult = WebDriver.FindElements(By.CssSelector("[class=paragraph_type_gray]"))[2].Text.Trim();
 
             Assert.AreEqual("Бостон, Массачусетс, Сполучені Штати Америки", actualResult);
@@ -73,6 +89,20 @@ namespace Newbookmodels.Tests
         [Test]
         public void ChengeIndustry()
         {
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+            WebDriver.Navigate().GoToUrl("https://newbookmodels.com/auth/signin");
+
+            var email = WebDriver.FindElement(By.CssSelector("[type = email]"));
+            email.SendKeys("jexon1992@gmail.com");
+
+            var password = WebDriver.FindElement(By.CssSelector("[type = password]"));
+            password.SendKeys("12345QWERTy_");
+
+            var LogInButton = WebDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
+            LogInButton.Click();
+
+            wait.Until(ExpectedConditions.UrlContains("Fexplore"));
+
             WebDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
 
             var edit = WebDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[0];
@@ -85,6 +115,8 @@ namespace Newbookmodels.Tests
             var saveChanges = WebDriver.FindElements(By.CssSelector("button[class*=button_type_default]"))[0];
             saveChanges.Click();
 
+            Thread.Sleep(1500);
+
             var actualResult = WebDriver.FindElements(By.CssSelector("[class=paragraph_type_gray]"))[3].Text.Trim();
 
             Assert.AreEqual("Education", actualResult);
@@ -93,6 +125,20 @@ namespace Newbookmodels.Tests
         [Test]
         public void ChangeEmail()
         {
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+            WebDriver.Navigate().GoToUrl("https://newbookmodels.com/auth/signin");
+
+            var email = WebDriver.FindElement(By.CssSelector("[type = email]"));
+            email.SendKeys("jexon1992@gmail.com");
+
+            var password1 = WebDriver.FindElement(By.CssSelector("[type = password]"));
+            password1.SendKeys("12345QWERTy_");
+
+            var LogInButton = WebDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
+            LogInButton.Click();
+
+            wait.Until(ExpectedConditions.UrlContains("Fexplore"));
+
             WebDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
 
             var edit = WebDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[1];
@@ -107,6 +153,7 @@ namespace Newbookmodels.Tests
             var saveChanges = WebDriver.FindElements(By.CssSelector("[class*=button_type_default]"))[0];
              saveChanges.Click();
 
+            Thread.Sleep(1500);
             var actualResult = WebDriver.FindElements(By.CssSelector("[class*=font-weight-bold]"))[0].Text.Trim();
 
             Assert.AreEqual("john_travis1996@gmail.com", actualResult);
@@ -115,22 +162,39 @@ namespace Newbookmodels.Tests
         [Test]
         public void ChangePassword()
         {
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+            WebDriver.Navigate().GoToUrl("https://newbookmodels.com/auth/signin");
+
+            var email1 = WebDriver.FindElement(By.CssSelector("[type = email]"));
+            email1.SendKeys("john_travis1996@gmail.com");
+
+            var password1 = WebDriver.FindElement(By.CssSelector("[type = password]"));
+            password1.SendKeys("12345QWERTy_");
+
+            var LogInButton1 = WebDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
+            LogInButton1.Click();
+
+            wait.Until(ExpectedConditions.UrlContains("Fexplore"));
+
             WebDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
 
             var edit = WebDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[2];
             edit.Click();
 
-            var currentPassword = WebDriver.FindElements(By.CssSelector("[class*=input__self_type_password-underline]"))[0];
+            var currentPassword = WebDriver.FindElement(By.CssSelector("input[placeholder*=Current]"));
             currentPassword.SendKeys("12345QWERTy_");
 
-            var newPassword = WebDriver.FindElements(By.CssSelector("[class*=input__self_type_password-underline]"))[1];
-            currentPassword.SendKeys("12345QWERTy_1");
+            var newPassword = WebDriver.FindElements(By.CssSelector("input[placeholder*=New]"))[0];
+            newPassword.SendKeys("12345QWERTy_1");
 
-            var retypeNewPassword = WebDriver.FindElements(By.CssSelector("[class*=input__self_type_password-underline]"))[2];
-            currentPassword.SendKeys("12345QWERTy_1");
+            var retypeNewPassword = WebDriver.FindElements(By.CssSelector("input[placeholder*=New]"))[1];
+            retypeNewPassword.SendKeys("12345QWERTy_1");
+            
 
             var saveChanges = WebDriver.FindElements(By.CssSelector("button[class*=button_type_default]"))[1];
             saveChanges.Click();
+
+            Thread.Sleep(1500);
 
             var logOut = WebDriver.FindElement(By.CssSelector("div[class*= link_type_logout]"));
             logOut.Click();
@@ -146,6 +210,8 @@ namespace Newbookmodels.Tests
             var LogInButton = WebDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
             LogInButton.Click();
 
+            Thread.Sleep(1000);
+
             var actualResult = WebDriver.Url;
 
             Assert.AreEqual("https://newbookmodels.com/explore", actualResult);
@@ -154,6 +220,20 @@ namespace Newbookmodels.Tests
         [Test]
         public void ChangePhone()
         {
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+            WebDriver.Navigate().GoToUrl("https://newbookmodels.com/auth/signin");
+
+            var email1 = WebDriver.FindElement(By.CssSelector("[type = email]"));
+            email1.SendKeys("john_travis1996@gmail.com");
+
+            var password1 = WebDriver.FindElement(By.CssSelector("[type = password]"));
+            password1.SendKeys("12345QWERTy_1");
+
+            var LogInButton1 = WebDriver.FindElement(By.CssSelector("button[class^= SignInForm]"));
+            LogInButton1.Click();
+
+            wait.Until(ExpectedConditions.UrlContains("Fexplore"));
+
             WebDriver.Navigate().GoToUrl("https://newbookmodels.com/account-settings/account-info/edit");
 
             var edit = WebDriver.FindElements(By.CssSelector("[class=edit-switcher__icon_type_edit]"))[3];
@@ -168,6 +248,7 @@ namespace Newbookmodels.Tests
             var saveChanges = WebDriver.FindElements(By.CssSelector("[class*=button_type_default]"))[2];
             saveChanges.Click();
 
+            Thread.Sleep(1050);
             var actualResult = WebDriver.FindElements(By.CssSelector("span[class^=font]"))[1].Text.Trim();
 
             Assert.AreEqual("322.148.8505", actualResult);
