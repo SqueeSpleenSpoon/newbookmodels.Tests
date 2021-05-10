@@ -14,34 +14,15 @@ using WebDriverManager.Helpers;
 
 namespace Newbookmodels.Tests
 {
-    class AccountSettingPageTests
+    class AccountSettingPageTests : BaseTestsClass
     {
-        private IWebDriver _webDriver;
-        private AccountSettingsPage _accountSettingPage;
-        private SignUpPage _signUpPage;
-
-        [SetUp]
-        public void Setup()
-        {
-            new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
-            _webDriver = new ChromeDriver();
-            _webDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(30);
-            _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            _accountSettingPage = new AccountSettingsPage(_webDriver);
-            _signUpPage = new SignUpPage(_webDriver);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _webDriver.Quit();
-        }
+       
         [Test]
         public void ChangeFirstName()
         {
-            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
 
-            _signUpPage.OpenPage()
+            SignUpPage.OpenPage()
                 .SetFirstName($"Valera{DateTime.Now.ToString("yyyyMMdhhmmss")}")
                 .SetLastName($"Zmih{DateTime.Now.ToString("yyyyMMdhhmmss")}")
                 .SetEmail($"{DateTime.Now.ToString("yyyyMMdhhmmss")}@ukr.net")
@@ -50,16 +31,170 @@ namespace Newbookmodels.Tests
                 .SetPhone("5558883332")
                 .ClickNextButton();
 
-            _accountSettingPage.OpenPage()
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/join/company"));
+
+            SignUpPage.SetCompanyName("Obolon")
+                .SetCompanyUrl("https://obolon.ua/ua")
+                .SetCompanyAddress("Boston, MA, USA")
+                .SetIndustry()
+                .CliclFinishButton();
+
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/explore"));
+
+            AccountSettingsPage.OpenPage()
                 .ClickFirstEdit()
                 .SetFirstName("Aboba")
                 .ClickFirsSaveChanges();
 
-            Thread.Sleep(500);
+            Thread.Sleep(2500);
 
-            var actualResult = _webDriver.FindElements(By.CssSelector("nb-account-info-general-information .paragraph_type_gray"))[1].Text.Trim();
+            var actualResult = WebDriver.FindElements(By.CssSelector("nb-account-info-general-information .paragraph_type_gray"))[1].Text.Trim().Split(" ")[0];
 
             Assert.AreEqual("Aboba", actualResult);            
+        }
+        [Test]
+        public void ChangeLastName()
+        {
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+
+            SignUpPage.OpenPage()
+                .SetFirstName($"Valera{DateTime.Now.ToString("yyyyMMdhhmmss")}")
+                .SetLastName($"Zmih{DateTime.Now.ToString("yyyyMMdhhmmss")}")
+                .SetEmail($"{DateTime.Now.ToString("yyyyMMdhhmmss")}@ukr.net")
+                .SetPassword("12345QWERTy_")
+                .SetConfirmPassword("12345QWERTy_")
+                .SetPhone("5558883332")
+                .ClickNextButton();
+
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/join/company"));
+
+            SignUpPage.SetCompanyName("Obolon")
+                .SetCompanyUrl("https://obolon.ua/ua")
+                .SetCompanyAddress("Boston, MA, USA")
+                .SetIndustry()
+                .CliclFinishButton();
+
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/explore"));
+
+            AccountSettingsPage.OpenPage()
+                .ClickFirstEdit()
+                .SetLastName("Petrov")
+                .ClickFirsSaveChanges();
+
+            Thread.Sleep(2500);
+
+            var actualResult = WebDriver.FindElements(By.CssSelector("nb-account-info-general-information .paragraph_type_gray"))[1].Text.Trim().Split(" ")[1];
+
+            Assert.AreEqual("Petrov", actualResult);
+        }
+        
+        [Test]
+        public void ChangeCompanyLocation()
+        {
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+
+            SignUpPage.OpenPage()
+                .SetFirstName($"Valera{DateTime.Now.ToString("yyyyMMdhhmmss")}")
+                .SetLastName($"Zmih{DateTime.Now.ToString("yyyyMMdhhmmss")}")
+                .SetEmail($"{DateTime.Now.ToString("yyyyMMdhhmmss")}@ukr.net")
+                .SetPassword("12345QWERTy_")
+                .SetConfirmPassword("12345QWERTy_")
+                .SetPhone("5558883332")
+                .ClickNextButton();
+
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/join/company"));
+
+            SignUpPage.SetCompanyName("Obolon")
+                .SetCompanyUrl("https://obolon.ua/ua")
+                .SetCompanyAddress("Boston, MA, USA")
+                .SetIndustry()
+                .CliclFinishButton();
+
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/explore"));
+
+            AccountSettingsPage.OpenPage()
+               .ClickFirstEdit()
+               .SetCompanyLocation("a")
+               .ClickFirsSaveChanges();
+
+            Thread.Sleep(2500);
+
+            var actualResult = WebDriver.FindElements(By.CssSelector("nb-account-info-general-information .paragraph_type_gray"))[2].Text.Trim();
+
+            Assert.AreEqual("Зона 51, Невада, Сполучені Штати Америки", actualResult);
+        }
+
+        [Test]
+        public void ChangeIndustry()
+        {
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+
+            SignUpPage.OpenPage()
+                .SetFirstName($"Valera{DateTime.Now.ToString("yyyyMMdhhmmss")}")
+                .SetLastName($"Zmih{DateTime.Now.ToString("yyyyMMdhhmmss")}")
+                .SetEmail($"{DateTime.Now.ToString("yyyyMMdhhmmss")}@ukr.net")
+                .SetPassword("12345QWERTy_")
+                .SetConfirmPassword("12345QWERTy_")
+                .SetPhone("5558883332")
+                .ClickNextButton();
+
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/join/company"));
+
+            SignUpPage.SetCompanyName("Obolon")
+                .SetCompanyUrl("https://obolon.ua/ua")
+                .SetCompanyAddress("Boston, MA, USA")
+                .SetIndustry()
+                .CliclFinishButton();
+
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/explore"));
+
+            AccountSettingsPage.OpenPage()
+               .ClickFirstEdit()
+               .SetIndustry("Education")
+               .ClickFirsSaveChanges();
+
+            Thread.Sleep(1500);
+
+            var actualResult = WebDriver.FindElements(By.CssSelector("nb-account-info-general-information .paragraph_type_gray"))[3].Text.Trim();
+
+            Assert.AreEqual("Education", actualResult);
+        }
+
+        [Test]
+        public void ChangeEmail()
+        {
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
+
+            SignUpPage.OpenPage()
+                .SetFirstName($"Valera{DateTime.Now.ToString("yyyyMMdhhmmss")}")
+                .SetLastName($"Zmih{DateTime.Now.ToString("yyyyMMdhhmmss")}")
+                .SetEmail($"{DateTime.Now.ToString("yyyyMMdhhmmss")}@ukr.net")
+                .SetPassword("12345QWERTy_")
+                .SetConfirmPassword("12345QWERTy_")
+                .SetPhone("5558883332")
+                .ClickNextButton();
+
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/join/company"));
+
+            SignUpPage.SetCompanyName("Obolon")
+                .SetCompanyUrl("https://obolon.ua/ua")
+                .SetCompanyAddress("Boston, MA, USA")
+                .SetIndustry()
+                .CliclFinishButton();
+
+            wait.Until(ExpectedConditions.UrlMatches("https://newbookmodels.com/explore"));
+
+            AccountSettingsPage.OpenPage()
+                .ClickSecondEdit()
+                .SetPasswordForEmail("12345QWERTy_")
+                .SetNewEmail("Egor_Ship1@ukr.net")
+                .ClickSecondSaveChanges();
+
+            Thread.Sleep(1500);
+
+            var actualResult = WebDriver.FindElement(By.CssSelector("nb-account-info-email-address .font-weight-bold")).Text.Trim();
+
+            Assert.AreEqual("Egor_Ship1@ukr.net", actualResult);
         }
     }
 }

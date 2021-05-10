@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Newbookmodels.Tests
@@ -18,10 +19,46 @@ namespace Newbookmodels.Tests
         private static readonly By _passwordConfirm = By.CssSelector("[name= password_confirm]");
         private static readonly By _phone = By.CssSelector("[name=phone_number]");
         private static readonly By _nextButton = By.CssSelector("[class^=SignupForm__submitButton]");
+        private static readonly By _companyName = By.CssSelector("[placeholder='Creative Inc.']");
+        private static readonly By _companyAddress = By.CssSelector("[placeholder='2459 Bentley Ave. Los Angeles CA 90025']");
+        private static readonly By _companyUrl = By.CssSelector("[placeholder='creativeinc.com']");
+        private static readonly By _industry = By.CssSelector("[placeholder='Select Industry']");
+        private static readonly By _finishButton = By.CssSelector("button[class^=SignupCompanyForm__submitButton]");
 
         public SignUpPage(IWebDriver webDriver)
         {
             _webDriver = webDriver;
+        }
+
+        public SignUpPage SetCompanyName(string name)
+        {
+            _webDriver.FindElement(_companyName).SendKeys(name);
+            return this;
+        }
+
+        public SignUpPage SetCompanyUrl(string url)
+        {
+            _webDriver.FindElement(_companyUrl).SendKeys(url);
+            return this;
+        }
+
+        public SignUpPage SetCompanyAddress(string address)
+        {
+            _webDriver.FindElement(_companyAddress).SendKeys(address);
+            _webDriver.FindElement(By.CssSelector("[class = 'pac-item-query']")).Click();
+            return this;
+        }
+        public SignUpPage SetIndustry()
+        {
+            _webDriver.FindElement(_industry).Click();
+            Thread.Sleep(1000);
+            _webDriver.FindElements(By.CssSelector("[class^=Select__optionText]"))[1].Click();
+            return this;
+        }
+        public SignUpPage CliclFinishButton()
+        {
+            _webDriver.FindElement(_finishButton).Click();
+            return this;
         }
 
         public SignUpPage OpenPage()
@@ -29,14 +66,14 @@ namespace Newbookmodels.Tests
             _webDriver.Navigate().GoToUrl("https://newbookmodels.com/join");
             return this;
         }
-        public SignUpPage SetFirstName(string firstNane)
+        public SignUpPage SetFirstName(string firstName)
         {
-            _webDriver.FindElement(_firstName).SendKeys(firstNane);
+            _webDriver.FindElement(_firstName).SendKeys(firstName);
             return this;
         }
-        public SignUpPage SetLastName(string lastNane)
+        public SignUpPage SetLastName(string lastName)
         {
-            _webDriver.FindElement(_lastName).SendKeys(lastNane);
+            _webDriver.FindElement(_lastName).SendKeys(lastName);
             return this;
         }
         public SignUpPage SetEmail(string email)
